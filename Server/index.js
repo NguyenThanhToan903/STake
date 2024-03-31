@@ -1,43 +1,45 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
-const EmployeeModel = require("./models/Employee.js");
-const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
+
+var cookieParser = require("cookie-parser");
+const authRouter = require("./routes/auth");
 
 const app = express();
+
+const cors = require("cors");
+dotenv.config();
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
 
-mongoose.connect("mongodb://localhost:27017/employee");
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  EmployeeModel.findOne({ email: email }).then((user) => {
-    if (user) {
-      bcrypt.compare(password, user.password, (err, response) => {
-        if (err) return res.json("The password incorrect");
-        if (response) {
-          res.json("Success");
-        }
-      });
-    } else {
-      res.json("No record existed");
-    }
-  });
-});
-app.post("/register", (req, res) => {
-  const { name, email, password } = req.body;
-  bcrypt
-    .hash(password, 10)
-    .then((hash) => {
-      EmployeeModel.create({ name, email, password: hash })
-        .then((employee) => res.json(employee))
-        .catch((err) => rs.json(err));
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+app.use(
+  cors({ credentials: true, origin: true, exposedHeaders: ["set-cookies"] })
+);
+
+const PORT = process.env.PORT || 6969;
+const URL = process.env.DATABASE_URL;
+
+mongoose
+  .connect(URL)
+  .then(console.log("Connected to MongoDB"))
+  .catch((err) => console.log(err));
+
+// app.get("/", function (req, res) {
+//   // Cookies that have not been signed
+//   console.log("Cookies: ", req.cookies);
+// });
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
 });
 
-app.listen(3001, () => {
-  console.log("Server is running");
+app.use("/api/auth", authRouter);
+
+app.listen(PORT, () => {
+  console.log("backend running");
 });

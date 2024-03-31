@@ -1,0 +1,43 @@
+.pagination {
+  display: flex;
+  margin-top: 30px;
+
+  .paginationPage {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .active {
+      color: #0033ff;
+    }
+
+    li {
+      cursor: pointer;
+      background-color: var(--element-color);
+      color: black;
+      border-radius: 5px;
+      margin: 0 5px;
+      border: 1px solid black;
+
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .prev,
+    .next {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}
+
+.currentPage {
+  margin-top: 10px;
+  font-size: 20px;
+  color: white;
+}

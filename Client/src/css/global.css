@@ -1,0 +1,38 @@
+:root {
+  --background-color: #eeeeee;
+  --element-color: white;
+  --primary-color: #ff0000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+.hidden {
+  display: none;
+}
+
+.display__flex {
+  display: flex;
+}
+
+.flex__center {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
