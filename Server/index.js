@@ -16,7 +16,7 @@ app.use(
   cors({ credentials: true, origin: true, exposedHeaders: ["set-cookies"] })
 );
 
-const PORT = process.env.PORT || 6969;
+const PORT = process.env.PORT || 6969; //port
 const URL = process.env.DATABASE_URL;
 
 mongoose
