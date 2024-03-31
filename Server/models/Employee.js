@@ -1,11 +1,21 @@
-const mogoose = require("mongoose");
+const mongoose = require("mongoose");
 
-const EmployeeSchema = new mogoose.Schema({
-  name: String,
-  email: String,
-  password: String,
+const EmployeeSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
 });
 
-const EmployeeModel = mogoose.model("employees", EmployeeSchema);
+const EmployeeModel = mongoose.model("employees", EmployeeSchema);
 
 module.exports = EmployeeModel;

@@ -1,0 +1,77 @@
+.navbar {
+  background-color: var(--element-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 0;
+
+  h2 {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbarAdmin {
+    padding: 20px 0;
+    width: 80%;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    font-weight: 600;
+    transition: 0.3s linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #ccc;
+
+    i {
+      margin-left: 10px;
+      transition: 0.3s linear;
+    }
+  }
+
+  .navbarLogout {
+    width: 80%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+
+  .adminActive {
+    color: var(--primary-color);
+    i {
+      transform: rotate(180deg);
+    }
+  }
+
+  ul {
+    list-style: none;
+    width: 80%;
+
+    li {
+      padding: 20px 0;
+      cursor: pointer;
+      &:hover {
+        color: var(--primary-color);
+      }
+
+      i {
+        margin-right: 10px;
+      }
+    }
+
+    .navbarActive {
+      color: var(--primary-color);
+    }
+  }
+}
