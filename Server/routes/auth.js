@@ -24,7 +24,7 @@ router.post("/register", (req, res) => {
     .then((hash) => {
       Employee.create({ name, email, password: hash })
         .then((employee) => res.json(employee))
-        .catch((err) => rs.json(err));
+        .catch((err) => res.json(err));
     })
     .catch((err) => {
       console.log(err.message);

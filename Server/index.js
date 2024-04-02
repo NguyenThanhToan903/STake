@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
 var cookieParser = require("cookie-parser");
-const authRouter = require("./routes/auth");
+const appRouter = require("./routes/index");
 
 const app = express();
 
@@ -29,16 +29,16 @@ mongoose
 //   console.log("Cookies: ", req.cookies);
 // });
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
-app.use("/api/auth", authRouter);
+appRouter(app);
 
 app.listen(PORT, () => {
   console.log("backend running");
