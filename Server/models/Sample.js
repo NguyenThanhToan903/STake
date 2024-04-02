@@ -1,28 +1,42 @@
 const mongoose = require("mongoose");
 
-const SampleSchema = new mongoose.Schema(
+const sampleSchema = new mongoose.Schema(
   {
-    image: {
-      path: {
-        type: String,
-      },
-      publicId: {
-        type: String,
-      },
-    },
     name: {
       type: String,
-      required: true,
     },
-    info: {
+    size: String,
+
+    color: String,
+    email: {
+      default: "x123@gmail.com",
       type: String,
     },
-    author: {
+    thumbnail: {
+      type: Array,
+      default: [],
+    },
+    category: String,
+    occupation: String,
+    occupationIs: {
       type: String,
-      required: true,
+      default: undefined,
+    },
+    description: String,
+    status: {
+      default: "active",
+      type: String,
+    },
+    deleted: {
+      type: Boolean,
+      default: false,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-module.exports = mongoose.model("Sample", SampleSchema);
+const Sample = mongoose.model("Sample", sampleSchema, "sample");
+
+module.exports = Sample;
