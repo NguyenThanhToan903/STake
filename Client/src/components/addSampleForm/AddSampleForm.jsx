@@ -1,9 +1,10 @@
 import { useState } from "react";
 // import "../../css/style.css"
-import { samplePostData } from "../../service/sampleService";
+
 import "./addSampleForm.css";
 import Swal from "sweetalert2";
 import "@sweetalert2/theme-dark/dark.css";
+import axiosInstance from "../../config";
 function AddSampleForm() {
   const [formData, setFormData] = useState({
     name: "",
@@ -14,6 +15,8 @@ function AddSampleForm() {
     email: "",
     occupation: "Student",
   });
+
+  const [file, setFile] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,8 +36,17 @@ function AddSampleForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("data check:", formData);
-    samplePostData(formData);
+
+    // samplePostData(formData.thumbnail[0]);
+    const uploadData = new FormData();
+    uploadData.append("file", file, "file");
+
+    try {
+      const res = await axiosInstance.post("/create-sample/upload", uploadData);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
 
     Swal.fire({
       position: "top-end",
@@ -63,7 +75,7 @@ function AddSampleForm() {
                 type="file"
                 name="thumbnail"
                 id="thumbnail"
-                onChange={(e) => handleChangeUploadFile(e)}
+                onChange={(e) => setFile(e.target.files[0])}
                 multiple
                 placeholder="Select multiple images..."
                 className="formbold-form-file"

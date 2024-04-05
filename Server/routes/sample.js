@@ -1,22 +1,31 @@
-const express = require("express");
-const router = express.Router();
-const multer = require("multer");
+const router = require("express").Router();
+const fileUploader = require("../config/cloudinary");
+const cloudinary = require("cloudinary").v2;
 
-const SampleController = require("../controller/sampleController");
+router.post("/upload", fileUploader.single("file"), async (req, res, next) => {
+  try {
+    if (!req.file) {
+      next(new Error("No file uploaded!"));
+      return;
+    }
 
-//upload thumbnail
-const upload = multer();
-//Middlewares upload
-const uploadCloudMiddleware = require("../middleware/uploadCloudMiddlewares");
+    res.json({ file: req.file });
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
 
-router.get("/", SampleController.index);
+router.delete("/remove/:id", async (req, res) => {
+  try {
+    const result = await cloudinary.uploader.destroy(req.params.id);
 
-router.post(
-  "/",
-  // upload.single("thumbnail"),
-  // upload.fields([{ name: "thumbnail", maxCount: 8 }]),
-  // uploadCloudMiddleware.uploadFields,
-  SampleController.postSample
-);
+    if (result.result === "not found") {
+      throw new Error("delete images failed");
+    }
+    return res.status(200).json({ message: "Delete image successfully" });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 
 module.exports = router;
