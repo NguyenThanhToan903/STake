@@ -10,15 +10,10 @@ app.use(
   cors({ credentials: true, origin: true, exposedHeaders: ["set-cookies"] })
 );
 
-<<<<<<< HEAD
 dotenv.config();
-=======
-const PORT = process.env.PORT || 6969; //port
-const URL = process.env.DATABASE_URL;
->>>>>>> f6e0db2d016f61c54b7c3af3734ddb39f401b61b
 
 const PORT = process.env.PORT || 6969;
-const MONGO_URL = process.env.MONGO_URL;
+const MONGO_URL = process.env.MONGODB_URL;
 
 //connect database
 mongoose
