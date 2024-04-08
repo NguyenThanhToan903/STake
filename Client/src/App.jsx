@@ -4,6 +4,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import AddSampleForm from "./components/addSampleForm/AddSampleForm";
 import Base from "./Base";
+import Main from "./pages/main/Main";
 
 function App() {
   return (
@@ -11,8 +12,9 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
-        <Route path="/home" element={<AddSampleForm />}></Route>
+        <Route path="/add" element={<AddSampleForm />}></Route>
         <Route path="/" element={<Base />}></Route>
+        <Route path="/table" element={<Main />}></Route>
       </Routes>
     </BrowserRouter>
   );
