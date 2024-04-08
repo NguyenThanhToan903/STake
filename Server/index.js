@@ -13,7 +13,7 @@ app.use(
 dotenv.config();
 
 const PORT = process.env.PORT || 6969;
-const MONGO_URL = process.env.MONGO_URL;
+const MONGO_URL = process.env.MONGODB_URL;
 
 //connect database
 mongoose
