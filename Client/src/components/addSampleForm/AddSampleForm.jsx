@@ -4,16 +4,24 @@ import { useState } from "react";
 import "./addSampleForm.css";
 import Swal from "sweetalert2";
 import "@sweetalert2/theme-dark/dark.css";
-import axiosInstance, { axiosJava } from "../../config";
+import axiosInstance from "../../config";
 function AddSampleForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    category: "",
+    size: "",
+    color: "",
+    description: "",
+    email: "",
+    occupation: "Student",
+  });
+
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [size, setSize] = useState("");
-  const [color, setColor] = useState("");
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
   const [occupation, setOccupation] = useState("");
-  const [occupationIs, setOccupationIs] = useState("");
 
   const [file, setFile] = useState(null);
 
@@ -36,39 +44,8 @@ function AddSampleForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      let imageData = {};
-      if (file) {
-        const uploadData = new FormData();
-        uploadData.append("file", file, "file");
-
-        const resImg = await axiosInstance.post(
-          "/create-sample/upload",
-          uploadData
-        );
-
-        imageData = {
-          path: await resImg.data.file.path,
-          publicId: await resImg.data.file.filename,
-        };
-      }
-      const newSample = {
-        thumbnail: imageData,
-        name,
-        email,
-        category,
-        occupation,
-        occupationIs,
-        size,
-        color,
-        description,
-      };
-
-      const res = await axiosJava.post("/sample", newSample);
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
+    // samplePostData(formData.thumbnail[0]);
+    console.log(formData);
 
     // if (file) {
     //   const uploadData = new FormData();
@@ -243,13 +220,13 @@ function AddSampleForm() {
                 </option>
               </select>
             </div>
-            {occupation === "Other" && (
+            {formData.occupation === "Other" && (
               <div className="formbold-input-group">
                 <input
                   type="text"
                   name="occupationIs"
                   id="occupationIs"
-                  onChange={(e) => setOccupationIs(e.target.value)}
+                  onChange={handleChange}
                   placeholder="Enter other option"
                   className="formbold-form-input"
                 />
