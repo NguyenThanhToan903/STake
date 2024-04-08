@@ -16,6 +16,13 @@ function AddSampleForm() {
     occupation: "Student",
   });
 
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [size, setSize] = useState("");
+  const [description, setDescription] = useState("");
+  const [email, setEmail] = useState("");
+  const [occupation, setOccupation] = useState("");
+
   const [file, setFile] = useState(null);
 
   const handleChange = (e) => {
@@ -38,23 +45,35 @@ function AddSampleForm() {
     e.preventDefault();
 
     // samplePostData(formData.thumbnail[0]);
-    const uploadData = new FormData();
-    uploadData.append("file", file, "file");
+    console.log(formData);
+
+    // if (file) {
+    //   const uploadData = new FormData();
+    //   uploadData.append("file", file, "file");
+
+    //   try {
+    //     const res = await axiosInstance.post(
+    //       "/create-sample/upload",
+    //       uploadData
+    //     );
+
+    //     console.log(res.data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
 
     try {
-      const res = await axiosInstance.post("/create-sample/upload", uploadData);
-      console.log(res.data);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Your create has been saved",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (error) {
       console.log(error);
     }
-
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Your create has been saved",
-      showConfirmButton: false,
-      timer: 1500,
-    });
   };
 
   return (
@@ -81,6 +100,12 @@ function AddSampleForm() {
                 className="formbold-form-file"
                 accept="image/*"
               />
+              {file && (
+                <img
+                  src={file && URL.createObjectURL(file)}
+                  className="file__img"
+                />
+              )}
             </div>
 
             <div className="formbold-input-group">
@@ -93,7 +118,7 @@ function AddSampleForm() {
                 name="name"
                 id="name"
                 // value={formData.name}
-                onChange={handleChange}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Enter sample name"
                 className="formbold-form-input"
               />
@@ -109,7 +134,7 @@ function AddSampleForm() {
                 name="category"
                 id="category"
                 // value={formData.category}
-                onChange={handleChange}
+                onChange={(e) => setCategory(e.target.value)}
                 placeholder="Enter sample category"
                 className="formbold-form-input"
               />
@@ -125,7 +150,7 @@ function AddSampleForm() {
                 name="size"
                 id="size"
                 // value={formData.size}
-                onChange={handleChange}
+                onChange={(e) => setSize(e.target.value)}
                 placeholder="Enter sample size"
                 className="formbold-form-input"
               />
@@ -141,7 +166,7 @@ function AddSampleForm() {
                 name="color"
                 id="color"
                 // value={formData.color}
-                onChange={handleChange}
+                onChange={(e) => setColor(e.target.value)}
                 placeholder="Enter sample color"
                 className="formbold-form-input"
               />
@@ -156,7 +181,7 @@ function AddSampleForm() {
                 name="description"
                 id="description"
                 // value={formData.description}
-                onChange={handleChange}
+                onChange={(e) => setDescription(e.target.value)}
                 placeholder="Type here..."
                 className="formbold-form-input"
               ></textarea>
@@ -170,7 +195,7 @@ function AddSampleForm() {
                 type="email"
                 name="email"
                 id="email"
-                onChange={handleChange}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 className="formbold-form-input"
               />
@@ -184,7 +209,7 @@ function AddSampleForm() {
                 className="formbold-form-select"
                 name="occupation"
                 id="occupation"
-                onChange={handleChange}
+                onChange={(e) => setOccupation(e.target.value)}
               >
                 <option value="Student">Student</option>
                 <option value="Researcher">Researcher</option>
