@@ -14,28 +14,28 @@ const TableMain = ({ data }) => {
       >
         <thead>
           <tr style={{ textAlign: "center" }}>
-            <th>STT</th>
-            <th>Hình ảnh mẫu</th>
+            <th>#</th>
+            <th>Thumbnail</th>
             <th>Sample Name</th>
-            <th>Category</th>
             <th>Size</th>
             <th>Color</th>
+            <th>Category</th>
             <th>Description</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => {
+          {data?.map((item, index) => {
             return (
               <tr key={index}>
                 <td style={{ textAlign: "center", alignContent: "center" }}>
                   {index + 1}
                 </td>
                 <td style={{ textAlign: "center", alignContent: "center" }}>
-                  {item.name}
+                  {/* {item.name} */}
                 </td>
                 <td style={{ textAlign: "center", alignContent: "center" }}>
-                  <Container
+                  {/* <Container
                     style={{ display: "flex", alignContent: "center" }}
                   >
                     {item.imgs.map((item, index) => {
@@ -54,7 +54,9 @@ const TableMain = ({ data }) => {
                         </Col>
                       );
                     })}
-                  </Container>
+                  </Container> */}
+
+                  {item.name}
                 </td>
                 <td style={{ textAlign: "center", alignContent: "center" }}>
                   {item.size}
@@ -63,10 +65,10 @@ const TableMain = ({ data }) => {
                   {item.color}
                 </td>
                 <td style={{ textAlign: "left", alignContent: "center" }}>
-                  {item.description}
+                  {item.category}
                 </td>
                 <td style={{ textAlign: "center", alignContent: "center" }}>
-                  {item.date}
+                  {item.description}
                 </td>
                 <td
                   className="action"
