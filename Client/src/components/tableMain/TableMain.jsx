@@ -1,8 +1,18 @@
 import Table from "react-bootstrap/Table";
 import { Image, Col, Container } from "react-bootstrap";
 import { Trash, Edit } from "react-feather";
+import { axiosJava } from "../../config";
 
 const TableMain = ({ data }) => {
+  const handleDelete = async (id) => {
+    try {
+      const res = await axiosJava.delete(`/sample/${id}`);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <Table
@@ -32,7 +42,7 @@ const TableMain = ({ data }) => {
                   {index + 1}
                 </td>
                 <td style={{ textAlign: "center", alignContent: "center" }}>
-                  {/* <Image
+                  <Image
                     src={item.thumbnail.path}
                     rounded={true}
                     style={{
@@ -41,7 +51,7 @@ const TableMain = ({ data }) => {
                       marginRight: "5px",
                       border: "1px solid",
                     }}
-                  /> */}
+                  />
                 </td>
                 <td style={{ textAlign: "center", alignContent: "center" }}>
                   {item.name}
@@ -65,9 +75,7 @@ const TableMain = ({ data }) => {
                   <span
                     className=""
                     style={{ color: "red", marginLeft: "10px" }}
-                    onClick={() => {
-                      alert(+item.id + 1);
-                    }}
+                    onClick={() => handleDelete(item.id)}
                   >
                     <Trash />
                   </span>
