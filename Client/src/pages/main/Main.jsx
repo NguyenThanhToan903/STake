@@ -24,7 +24,7 @@ const Main = () => {
   return (
     <div className="wrapper">
       <div style={{ maxWidth: "97%", marginLeft: "auto", marginRight: "auto" }}>
-        <Link to={"/add"}>
+        <Link to={"/form?mode=add"}>
           <Button
             className="btn btn-success"
             style={{ marginBottom: "10px", fontWeight: "700" }}

@@ -89,13 +89,22 @@ public class SampleController {
 
     private DeferredResult<ResponseEntity<SampleModel>> runInNewThreadAndUpdateResult(String id, SampleModel updatedSample) {
         DeferredResult<ResponseEntity<SampleModel>> deferredResult = new DeferredResult<>();
-
+    
         executorService.submit(() -> {
             try {
                 Optional<SampleModel> sampleData = sampleRepository.findById(id);
                 if (sampleData.isPresent()) {
                     SampleModel existingSample = sampleData.get();
                     existingSample.setName(updatedSample.getName());
+                    existingSample.setSize(updatedSample.getSize());
+                    existingSample.setColor(updatedSample.getColor());
+                    existingSample.setEmail(updatedSample.getEmail());
+                    existingSample.setThumbnail(updatedSample.getThumbnail()); // Cập nhật thông tin thumbnail
+                    existingSample.setCategory(updatedSample.getCategory());
+                    existingSample.setOccupation(updatedSample.getOccupation());
+                    existingSample.setOccupationIs(updatedSample.getOccupationIs());
+                    existingSample.setDescription(updatedSample.getDescription());
+                    existingSample.setStatus(updatedSample.getStatus());
                     SampleModel savedSample = sampleRepository.save(existingSample);
                     ResponseEntity<SampleModel> responseEntity = new ResponseEntity<>(savedSample, HttpStatus.OK);
                     deferredResult.setResult(responseEntity);
@@ -106,7 +115,7 @@ public class SampleController {
                 deferredResult.setResult(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
             }
         });
-
+    
         return deferredResult;
     }
 
