@@ -10,11 +10,14 @@ const Main = () => {
 
   useEffect(() => {
     const getSample = async () => {
-      const res = await axiosJava.get("/sample");
-      console.log(res.data);
-      setSamples(res.data);
+      try {
+        const res = await axiosJava.get("/sample");
+        setSamples(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
-
     getSample();
   }, []);
 

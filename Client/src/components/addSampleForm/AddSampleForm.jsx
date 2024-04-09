@@ -58,7 +58,7 @@ function AddSampleForm() {
         email,
         category,
         occupation,
-        occupation,
+        occupationIs,
         size,
         color,
         description,
