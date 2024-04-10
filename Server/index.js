@@ -6,6 +6,7 @@ const authRoute = require("./routes/auth");
 const sampleRoute = require("./routes/sample");
 
 const app = express();
+app.use(express.json());
 app.use(
   cors({ credentials: true, origin: true, exposedHeaders: ["set-cookies"] })
 );

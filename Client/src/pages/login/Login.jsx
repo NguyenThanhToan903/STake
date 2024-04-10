@@ -3,23 +3,29 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import axiosInstance from "../../config";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/apiCall";
 // import "./style.css";
 
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8000/api/auth/login", { email, password })
-      .then((result) => {
-        if (result.data === "Success") {
-          navigate("/");
-        }
-        console.log(result);
-      })
-      .catch((err) => console.log(err));
+
+    const user = {
+      email,
+      password,
+    };
+
+    try {
+      login(dispatch, user);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="login template d-flex justify-content-center align-items-center 100-w vh-100 bg-primary">
@@ -44,25 +50,15 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div>
-            <input
-              type="checkbox"
-              className="custom-control custom-checkbox"
-              id="check"
-            />
-            <label htmlFor="check" className="custom-input-label ms-2">
-              Remember me
-            </label>
-          </div>
+
           <div className="d-grid">
-            <button className="btn btn-primary">Sign in</button>
+            <button className="btn btn-primary">Log in</button>
           </div>
-          <p className="text-end mt-2">
-            Forgot <a href="">Password</a>
-            <Link to="/register" className="ms-2">
-              Sign up
+          <div className="d-grid mt-2">
+            <Link to="/register" className=" btn btn-secondary link">
+              Register
             </Link>
-          </p>
+          </div>
         </form>
       </div>
     </div>

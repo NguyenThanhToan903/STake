@@ -3,15 +3,15 @@ import { Image, Col, Container } from "react-bootstrap";
 import { Trash, Edit } from "react-feather";
 import { Link } from "react-router-dom";
 import axiosInstance, { axiosJava } from "../../config";
+import DeleteModal from "../deleteModal/DeleteModal";
+import { useState } from "react";
+import Loading from "../loading/Loading";
 
 const TableMain = ({ data }) => {
-  const handleDelete = async (id) => {
-    try {
-      await axiosJava.delete(`/sample/${id}`);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [modalShow, setModalShow] = useState(false);
+  const [sampleId, setSampleId] = useState("");
+  const [publicId, setPublicId] = useState("");
+  const [loading, setLoading] = useState(false);
 
   return (
     <div>
@@ -31,6 +31,7 @@ const TableMain = ({ data }) => {
             <th>Color</th>
             <th>Category</th>
             <th>Description</th>
+            <th>Occupation</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -68,6 +69,11 @@ const TableMain = ({ data }) => {
                 <td style={{ textAlign: "left", alignContent: "center" }}>
                   {item.description}
                 </td>
+                <td style={{ textAlign: "center", alignContent: "center" }}>
+                  {item.occupation === "other"
+                    ? item.occupationIs
+                    : item.occupation}
+                </td>
                 <td
                   className="action"
                   style={{ textAlign: "center", alignContent: "center" }}
@@ -75,7 +81,11 @@ const TableMain = ({ data }) => {
                   <span
                     className=""
                     style={{ color: "red", marginLeft: "10px" }}
-                    onClick={() => handleDelete(item.id)}
+                    onClick={() => {
+                      setSampleId(item.id);
+                      setModalShow(true);
+                      setPublicId(item.thumbnail.publicId);
+                    }}
                   >
                     <Trash />
                   </span>
@@ -92,6 +102,15 @@ const TableMain = ({ data }) => {
           })}
         </tbody>
       </Table>
+
+      <DeleteModal
+        modalShow={modalShow}
+        setModalShow={setModalShow}
+        id={sampleId}
+        publicId={publicId}
+        setLoading={setLoading}
+      />
+      {loading && <Loading />}
     </div>
   );
 };

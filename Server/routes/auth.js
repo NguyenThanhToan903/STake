@@ -9,7 +9,9 @@ router.post("/login", (req, res) => {
       bcrypt.compare(password, user.password, (err, response) => {
         if (err) return res.json("The password incorrect");
         if (response) {
-          res.json("Success");
+          const { password, ...others } = user._doc;
+
+          res.json(others);
         }
       });
     } else {
@@ -18,12 +20,17 @@ router.post("/login", (req, res) => {
   });
 });
 router.post("/register", (req, res) => {
-  const { name, email, password } = req.body;
+  const name = req.body.name;
+  const email = req.body.email;
+  const password = req.body.password;
   bcrypt
     .hash(password, 10)
     .then((hash) => {
       Employee.create({ name, email, password: hash })
-        .then((employee) => res.json(employee))
+        .then((employee) => {
+          const { password, ...others } = employee._doc;
+          res.json(others);
+        })
         .catch((err) => res.json(err));
     })
     .catch((err) => {

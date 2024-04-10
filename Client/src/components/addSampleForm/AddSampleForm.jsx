@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import "../../css/style.css"
 
 import "./addSampleForm.css";
 import Swal from "sweetalert2";
 import "@sweetalert2/theme-dark/dark.css";
 import axiosInstance, { axiosJava } from "../../config";
+import Loading from "../loading/Loading";
 function AddSampleForm() {
   let [searchParams, setSearchParams] = useSearchParams();
   const mode = searchParams.get("mode");
   const id = searchParams.get("id");
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
@@ -20,6 +23,7 @@ function AddSampleForm() {
   const [occupation, setOccupation] = useState("");
   const [occupationIs, setOccupationIs] = useState("");
   const [thumbnail, setThumbnail] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const [file, setFile] = useState(null);
 
@@ -45,6 +49,7 @@ function AddSampleForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       let imageData = {};
@@ -78,7 +83,9 @@ function AddSampleForm() {
         };
 
         const res = await axiosJava.post("/sample", newSample);
-        console.log(res.data);
+        if (res.data) {
+          setLoading(false);
+        }
       } else {
         if (file && thumbnail) {
           await axiosInstance.delete(
@@ -110,7 +117,10 @@ function AddSampleForm() {
             description,
           };
 
-          await axiosJava.put(`/sample/${id}`, newSample);
+          const res = await axiosJava.put(`/sample/${id}`, newSample);
+          if (res.data) {
+            setLoading(false);
+          }
         } else {
           const newSample = {
             thumbnail,
@@ -124,9 +134,13 @@ function AddSampleForm() {
             description,
           };
 
-          await axiosJava.put(`/sample/${id}`, newSample);
+          const res = await axiosJava.put(`/sample/${id}`, newSample);
+          if (res.data) {
+            setLoading(false);
+          }
         }
       }
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -332,6 +346,8 @@ function AddSampleForm() {
           </form>
         </div>
       </div>
+
+      {loading && <Loading />}
     </>
   );
 }
