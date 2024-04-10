@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { json } = require("body-parser");
 const Employee = require("../models/Employee");
 const bcrypt = require("bcrypt");
 
@@ -19,6 +20,26 @@ router.post("/login", (req, res) => {
     }
   });
 });
+
+// router.get("/user", async (req, res) => {
+//   // const { email, password } = req.body;
+//   console.log(req.body);
+//   // Employee.findOne({ email: email }).then((user) => {
+//   //   if (user) {
+//   //     bcrypt.compare(password, user.password, (err, response) => {
+//   //       if (err) return res.json("The password incorrect");
+//   //       if (response) {
+//   //         const { password, ...others } = user._doc;
+
+//   //         res.json(others);
+//   //       }
+//   //     });
+//   //   } else {
+//   //     res.json("No record existed");
+//   //   }
+//   // });
+// });
+
 router.post("/register", (req, res) => {
   const name = req.body.name;
   const email = req.body.email;

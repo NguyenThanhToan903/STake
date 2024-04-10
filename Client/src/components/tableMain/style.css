@@ -1,0 +1,9 @@
+.table-home{
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.table-sample{
+    max-width: 80%;
+}
