@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../config";
 
 // import React from "react";
 function Register() {
@@ -9,19 +10,19 @@ function Register() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8000/api/auth/register", {
-        name,
-        email,
-        password,
-      })
-      .then((result) => {
-        navigate("/login");
-        console.log(result);
-      })
-      .catch((err) => console.log(err));
+    const newUser = {
+      name,
+      email,
+      password,
+    };
+    try {
+      const res = await axiosInstance.post("/auth/register", newUser);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -35,6 +36,7 @@ function Register() {
               type="text"
               placeholder="Enter Last Name"
               className="form-control"
+              // value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -42,6 +44,7 @@ function Register() {
             <label htmlFor="email">Email</label>
             <input
               type="email"
+              // value={email}
               placeholder="Enter Email"
               className="form-control"
               onChange={(e) => setEmail(e.target.value)}
@@ -53,6 +56,7 @@ function Register() {
               type="password"
               placeholder="Enter Password"
               className="form-control"
+              // value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>

@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import "../../css/style.css"
 
 import "./addSampleForm.css";
 import Swal from "sweetalert2";
 import "@sweetalert2/theme-dark/dark.css";
 import axiosInstance, { axiosJava } from "../../config";
+import Loading from "../loading/Loading";
 function AddSampleForm() {
+  let [searchParams, setSearchParams] = useSearchParams();
+  const mode = searchParams.get("mode");
+  const id = searchParams.get("id");
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [size, setSize] = useState("");
@@ -14,58 +22,125 @@ function AddSampleForm() {
   const [email, setEmail] = useState("");
   const [occupation, setOccupation] = useState("");
   const [occupationIs, setOccupationIs] = useState("");
+  const [thumbnail, setThumbnail] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const [file, setFile] = useState(null);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  useEffect(() => {
+    const getSample = async () => {
+      try {
+        const res = await axiosJava.get(`/sample/${id}`);
+        console.log(res.data);
+        setName(res.data.name);
+        setSize(res.data.size);
+        setColor(res.data.color);
+        setCategory(res.data.category);
+        setDescription(res.data.description);
+        setOccupation(res.data.occupation);
+        setThumbnail(res.data.thumbnail);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleChangeUploadFile = (e) => {
-    setFormData({
-      ...formData,
-      thumbnail: e.target.files,
-    });
-  };
+    if (mode === "edit") getSample();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       let imageData = {};
-      if (file) {
-        const uploadData = new FormData();
-        uploadData.append("file", file, "file");
 
-        const resImg = await axiosInstance.post(
-          "/create-sample/upload",
-          uploadData
-        );
+      if (mode === "add") {
+        if (file) {
+          const uploadData = new FormData();
+          uploadData.append("file", file, "file");
 
-        imageData = {
-          path: await resImg.data.file.path,
-          publicId: await resImg.data.file.filename,
+          const resImg = await axiosInstance.post(
+            "/create-sample/upload",
+            uploadData
+          );
+
+          imageData = {
+            path: await resImg.data.file.path,
+            publicId: await resImg.data.file.filename,
+          };
+        }
+
+        const newSample = {
+          thumbnail: imageData,
+          name,
+          email,
+          category,
+          occupation,
+          occupationIs,
+          size,
+          color,
+          description,
         };
-      }
-      const newSample = {
-        thumbnail: imageData,
-        name,
-        email,
-        category,
-        occupation,
-        occupationIs,
-        size,
-        color,
-        description,
-      };
 
-      const res = await axiosJava.post("/sample", newSample);
-      console.log(res.data);
+        const res = await axiosJava.post("/sample", newSample);
+        if (res.data) {
+          setLoading(false);
+        }
+      } else {
+        if (file && thumbnail) {
+          await axiosInstance.delete(
+            `/create-sample/remove/${thumbnail.publicId}`
+          );
+
+          const uploadData = new FormData();
+          uploadData.append("file", file, "file");
+
+          const resImg = await axiosInstance.post(
+            "/create-sample/upload",
+            uploadData
+          );
+
+          imageData = {
+            path: await resImg.data.file.path,
+            publicId: await resImg.data.file.filename,
+          };
+
+          const newSample = {
+            thumbnail: imageData,
+            name,
+            email,
+            category,
+            occupation,
+            occupationIs,
+            size,
+            color,
+            description,
+          };
+
+          const res = await axiosJava.put(`/sample/${id}`, newSample);
+          if (res.data) {
+            setLoading(false);
+          }
+        } else {
+          const newSample = {
+            thumbnail,
+            name,
+            email,
+            category,
+            occupation,
+            occupationIs,
+            size,
+            color,
+            description,
+          };
+
+          const res = await axiosJava.put(`/sample/${id}`, newSample);
+          if (res.data) {
+            setLoading(false);
+          }
+        }
+      }
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -104,7 +179,12 @@ function AddSampleForm() {
       <div className="formbold-main-wrapper">
         <div className="formbold-form-wrapper">
           {/* <img src="your-image-url-here.jpg" alt="Form Image" /> */}
-          <h1 className="form-title">CREATE SAMPLE</h1>
+
+          {mode === "add" ? (
+            <h1 className="form-title">CREATE SAMPLE</h1>
+          ) : (
+            <h1 className="form-title">EDIT SAMPLE</h1>
+          )}
 
           <form onSubmit={handleSubmit}>
             <div className="formbold-input-group">
@@ -123,11 +203,13 @@ function AddSampleForm() {
                 className="formbold-form-file"
                 accept="image/*"
               />
-              {file && (
+              {file ? (
                 <img
                   src={file && URL.createObjectURL(file)}
                   className="file__img"
                 />
+              ) : (
+                <img src={thumbnail && thumbnail.path} className="file__img" />
               )}
             </div>
 
@@ -140,7 +222,7 @@ function AddSampleForm() {
                 type="text"
                 name="name"
                 id="name"
-                // value={formData.name}
+                value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter sample name"
                 className="formbold-form-input"
@@ -156,7 +238,7 @@ function AddSampleForm() {
                 type="text"
                 name="category"
                 id="category"
-                // value={formData.category}
+                value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 placeholder="Enter sample category"
                 className="formbold-form-input"
@@ -172,7 +254,7 @@ function AddSampleForm() {
                 type="text"
                 name="size"
                 id="size"
-                // value={formData.size}
+                value={size}
                 onChange={(e) => setSize(e.target.value)}
                 placeholder="Enter sample size"
                 className="formbold-form-input"
@@ -188,7 +270,7 @@ function AddSampleForm() {
                 type="text"
                 name="color"
                 id="color"
-                // value={formData.color}
+                value={color}
                 onChange={(e) => setColor(e.target.value)}
                 placeholder="Enter sample color"
                 className="formbold-form-input"
@@ -203,7 +285,7 @@ function AddSampleForm() {
                 rows="6"
                 name="description"
                 id="description"
-                // value={formData.description}
+                value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Type here..."
                 className="formbold-form-input"
@@ -232,6 +314,7 @@ function AddSampleForm() {
                 className="formbold-form-select"
                 name="occupation"
                 id="occupation"
+                value={occupation}
                 onChange={(e) => setOccupation(e.target.value)}
               >
                 <option value="Student">Student</option>
@@ -249,6 +332,7 @@ function AddSampleForm() {
                   type="text"
                   name="occupationIs"
                   id="occupationIs"
+                  value={occupationIs}
                   onChange={(e) => setOccupationIs(e.target.value)}
                   placeholder="Enter other option"
                   className="formbold-form-input"
@@ -262,6 +346,8 @@ function AddSampleForm() {
           </form>
         </div>
       </div>
+
+      {loading && <Loading />}
     </>
   );
 }

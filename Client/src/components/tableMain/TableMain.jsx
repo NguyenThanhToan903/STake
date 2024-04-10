@@ -1,8 +1,18 @@
 import Table from "react-bootstrap/Table";
 import { Image, Col, Container } from "react-bootstrap";
 import { Trash, Edit } from "react-feather";
+import { Link } from "react-router-dom";
+import axiosInstance, { axiosJava } from "../../config";
+import DeleteModal from "../deleteModal/DeleteModal";
+import { useState } from "react";
+import Loading from "../loading/Loading";
 
 const TableMain = ({ data }) => {
+  const [modalShow, setModalShow] = useState(false);
+  const [sampleId, setSampleId] = useState("");
+  const [publicId, setPublicId] = useState("");
+  const [loading, setLoading] = useState(false);
+
   return (
     <div>
       <Table
@@ -21,6 +31,7 @@ const TableMain = ({ data }) => {
             <th>Color</th>
             <th>Category</th>
             <th>Description</th>
+            <th>Occupation</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -32,30 +43,18 @@ const TableMain = ({ data }) => {
                   {index + 1}
                 </td>
                 <td style={{ textAlign: "center", alignContent: "center" }}>
-                  {/* {item.name} */}
+                  <Image
+                    src={item.thumbnail.path}
+                    rounded={true}
+                    style={{
+                      height: "80px",
+                      width: "80px",
+                      marginRight: "5px",
+                      border: "1px solid",
+                    }}
+                  />
                 </td>
-                <td style={{ textAlign: "center", alignContent: "center" }}>
-                  {/* <Container
-                    style={{ display: "flex", alignContent: "center" }}
-                  >
-                    {item.imgs.map((item, index) => {
-                      return (
-                        <Col xs={6} md={4} key={index}>
-                          <Image
-                            src={item.src}
-                            rounded={true}
-                            style={{
-                              height: "80px",
-                              width: "80px",
-                              marginRight: "5px",
-                              border: "1px solid",
-                            }}
-                          />
-                        </Col>
-                      );
-                    })}
-                  </Container> */}
-
+                <td style={{ textAlign: "left", alignContent: "center" }}>
                   {item.name}
                 </td>
                 <td style={{ textAlign: "center", alignContent: "center" }}>
@@ -67,8 +66,13 @@ const TableMain = ({ data }) => {
                 <td style={{ textAlign: "left", alignContent: "center" }}>
                   {item.category}
                 </td>
-                <td style={{ textAlign: "center", alignContent: "center" }}>
+                <td style={{ textAlign: "left", alignContent: "center" }}>
                   {item.description}
+                </td>
+                <td style={{ textAlign: "center", alignContent: "center" }}>
+                  {item.occupation === "other"
+                    ? item.occupationIs
+                    : item.occupation}
                 </td>
                 <td
                   className="action"
@@ -78,26 +82,35 @@ const TableMain = ({ data }) => {
                     className=""
                     style={{ color: "red", marginLeft: "10px" }}
                     onClick={() => {
-                      alert(+item.id + 1);
+                      setSampleId(item.id);
+                      setModalShow(true);
+                      setPublicId(item.thumbnail.publicId);
                     }}
                   >
                     <Trash />
                   </span>
-                  <span
+                  <Link
+                    to={`/form?mode=edit&id=${item.id}`}
                     className=""
                     style={{ color: "Green", marginLeft: "10px" }}
-                    onClick={() => {
-                      alert(item.id + 1);
-                    }}
                   >
                     <Edit />
-                  </span>
+                  </Link>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </Table>
+
+      <DeleteModal
+        modalShow={modalShow}
+        setModalShow={setModalShow}
+        id={sampleId}
+        publicId={publicId}
+        setLoading={setLoading}
+      />
+      {loading && <Loading />}
     </div>
   );
 };
