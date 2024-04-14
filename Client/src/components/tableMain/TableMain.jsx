@@ -7,14 +7,18 @@ import DeleteModal from "../deleteModal/DeleteModal";
 import { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
 import "./style.css";
+import SampleModal from "../sampleModal/SampleModal";
 
 const TableMain = ({ data }) => {
   const [modalShow, setModalShow] = useState(false);
   const [sampleId, setSampleId] = useState("");
   const [publicId, setPublicId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [sampleModalShow, setSampleModalShow] = useState(false);
+  const [sample, setSample] = useState({});
 
   return (
+
     <div>
       {data?.map((item, index) => (
         <div key={index} className="card" style={{ width: "100%" }}>

@@ -16,10 +16,10 @@ const host = "http://localhost:8000/";
 
 const socket = socketIOClient.connect(host);
 
-
 function AddSampleForm() {
   const user = useSelector((state) => state.user.currentUser);
   let [searchParams, setSearchParams] = useSearchParams();
+
   const mode = searchParams.get("mode");
   const id = searchParams.get("id");
   const navigate = useNavigate();
@@ -136,7 +136,6 @@ function AddSampleForm() {
             setLoading(false);
 
             socket.emit("loading-server", { message: "hello" });
-
           }
           // }
         } else {
