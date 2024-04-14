@@ -7,12 +7,15 @@ import DeleteModal from "../deleteModal/DeleteModal";
 import { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
 import "./style.css";
+import SampleModal from "../sampleModal/SampleModal";
 
 const TableMain = ({ data }) => {
   const [modalShow, setModalShow] = useState(false);
   const [sampleId, setSampleId] = useState("");
   const [publicId, setPublicId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [sampleModalShow, setSampleModalShow] = useState(false);
+  const [sample, setSample] = useState({});
 
   return (
     <div className="table-home">
@@ -36,7 +39,14 @@ const TableMain = ({ data }) => {
         <tbody>
           {data?.map((item, index) => {
             return (
-              <tr key={index}>
+              <tr
+                key={index}
+                onClick={() => {
+                  setSampleModalShow(true);
+                  setSampleId(item.id);
+                  setSample(item);
+                }}
+              >
                 <td style={{ textAlign: "center", alignContent: "center" }}>
                   {index + 1}
                 </td>
@@ -67,8 +77,13 @@ const TableMain = ({ data }) => {
                 >
                   <span
                     className=""
-                    style={{ color: "red", marginLeft: "10px" }}
-                    onClick={() => {
+                    style={{
+                      color: "red",
+                      marginLeft: "10px",
+                      cursor: "pointer",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
                       setSampleId(item.id);
                       setModalShow(true);
                       setPublicId(item.thumbnail.publicId);
@@ -96,6 +111,11 @@ const TableMain = ({ data }) => {
         id={sampleId}
         publicId={publicId}
         setLoading={setLoading}
+      />
+      <SampleModal
+        sampleModalShow={sampleModalShow}
+        setSampleModalShow={setSampleModalShow}
+        sample={sample}
       />
       {loading && <Loading />}
     </div>
