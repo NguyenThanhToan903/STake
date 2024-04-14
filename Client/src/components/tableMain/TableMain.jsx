@@ -4,6 +4,8 @@ import { Trash, Edit } from "react-feather";
 import { Link } from "react-router-dom";
 import axiosInstance, { axiosJava } from "../../config";
 import DeleteModal from "../deleteModal/DeleteModal";
+import SampleModal from "../sampleDetail/sampleDetail";
+
 import { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
 import "./style.css";
@@ -30,7 +32,7 @@ const TableMain = ({ data }) => {
               <a href="#" className="btn btn-primary">
                 Go somewhere
               </a>
-              <span
+              <button
                 className=""
                 style={{ color: "red", marginLeft: "10px" }}
                 onClick={() => {
@@ -39,12 +41,27 @@ const TableMain = ({ data }) => {
                   setPublicId(item.thumbnail.publicId);
                 }}
               >
-                <Trash />
-              </span>
+                Xóa
+              </button>
+              <Link
+                to={`/form?mode=edit&id=${item.id}`}
+                className=""
+                style={{ color: "Green", marginLeft: "10px" }}
+              >
+                <Edit />
+              </Link>
             </div>
           </div>
         </div>
       ))}
+      <DeleteModal
+        modalShow={modalShow}
+        setModalShow={setModalShow}
+        id={sampleId}
+        publicId={publicId}
+        setLoading={setLoading}
+      />
+      {loading && <Loading />}
     </div>
   );
 };
@@ -126,12 +143,12 @@ export default TableMain;
 //         </tbody>
 //       </Table>
 
-//       <DeleteModal
-//         modalShow={modalShow}
-//         setModalShow={setModalShow}
-//         id={sampleId}
-//         publicId={publicId}
-//         setLoading={setLoading}
-//       />
-//       {loading && <Loading />}
+// <DeleteModal
+//   modalShow={modalShow}
+//   setModalShow={setModalShow}
+//   id={sampleId}
+//   publicId={publicId}
+//   setLoading={setLoading}
+// />
+// {loading && <Loading />}
 //     </div>
