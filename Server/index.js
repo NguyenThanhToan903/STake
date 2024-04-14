@@ -1,7 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const http = require("http");
-const { Server } = require("socket.io");
 
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
@@ -17,6 +15,8 @@ app.use(
     exposedHeaders: ["set-cookies"],
   })
 );
+const http = require("http");
+const { Server } = require("socket.io");
 
 const server = http.createServer(app);
 
@@ -35,7 +35,7 @@ app.listen(PORT, () => {
   console.log("connect to port " + PORT);
 });
 
-app.all("/", function (req, res, next) {
+app.all("/api/*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
@@ -43,7 +43,7 @@ app.all("/", function (req, res, next) {
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173/",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });

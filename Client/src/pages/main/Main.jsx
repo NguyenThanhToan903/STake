@@ -9,16 +9,12 @@ import "./main.css";
 import { logout } from "../../redux/userRedux";
 import socketIOClient from "socket.io-client";
 
-const host = "http://localhost:8000";
+const socket = socketIOClient.connect("http://localhost:8000");
 
 const Main = () => {
   const [samples, setSamples] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const socket = socketIOClient.connect(host);
-  }, []);
 
   useEffect(() => {
     const getSample = async () => {
