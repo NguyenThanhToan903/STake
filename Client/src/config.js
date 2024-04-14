@@ -5,6 +5,7 @@ const JAVA_URL = "http://localhost:8080/api";
 
 const axiosInstance = axios.create({
   withCredentials: true,
+
   credentials: "include",
   baseURL: BASE_URL,
 });

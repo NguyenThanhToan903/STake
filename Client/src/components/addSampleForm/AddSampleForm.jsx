@@ -8,7 +8,14 @@ import Swal from "sweetalert2";
 import "@sweetalert2/theme-dark/dark.css";
 import axiosInstance, { axiosJava } from "../../config";
 import Loading from "../loading/Loading";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
+
+import socketIOClient from "socket.io-client";
+
+const host = "http://localhost:8000/";
+
+const socket = socketIOClient.connect(host);
+
 function AddSampleForm() {
   const user = useSelector((state) => state.user.currentUser);
   let [searchParams, setSearchParams] = useSearchParams();
@@ -87,6 +94,7 @@ function AddSampleForm() {
         const res = await axiosJava.post("/sample", newSample);
         if (res.data) {
           setLoading(false);
+          socket.emit("loading-server", { message: "hello" });
         }
       } else {
         if (file && thumbnail) {
@@ -111,24 +119,23 @@ function AddSampleForm() {
             thumbnail: imageData,
             name,
             email,
-            categorycate,
+            category,
             occupation,
             occupationIs,
             size,
             color,
             description,
           };
-          
+
           // if(newSample.name == "" || newSample.categorycate == "" || newSample.occupation == "" ){
           //   navigate("/");
           // }else{
-            const res = await axiosJava.put(`/sample/${id}`, newSample);
-            if (res.data) {
-              setLoading(false);
-            }
+          const res = await axiosJava.put(`/sample/${id}`, newSample);
+          if (res.data) {
+            setLoading(false);
+            socket.emit("loading-server", { message: "hello" });
+          }
           // }
-
-          
         } else {
           const newSample = {
             thumbnail,
@@ -145,6 +152,8 @@ function AddSampleForm() {
           const res = await axiosJava.put(`/sample/${id}`, newSample);
           if (res.data) {
             setLoading(false);
+
+            socket.emit("loading-server", { message: "hello" });
           }
         }
       }
@@ -178,7 +187,7 @@ function AddSampleForm() {
         timer: 1500,
       });
 
-      navigate("/")
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

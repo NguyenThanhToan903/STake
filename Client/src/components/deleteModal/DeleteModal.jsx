@@ -1,6 +1,11 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axiosInstance, { axiosJava } from "../../config";
+import socketIOClient from "socket.io-client";
+
+const host = "http://localhost:8000/";
+
+const socket = socketIOClient.connect(host);
 
 const DeleteModal = ({ modalShow, setModalShow, id, publicId, setLoading }) => {
   const handleDelete = async () => {
@@ -10,6 +15,7 @@ const DeleteModal = ({ modalShow, setModalShow, id, publicId, setLoading }) => {
       await axiosJava.delete(`/sample/${id}`);
       await axiosInstance.delete(`/create-sample/remove/${publicId}`);
       setLoading(false);
+      socket.emit("loading-server", { message: "hello" });
     } catch (error) {
       console.log(error);
     }
