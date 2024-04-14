@@ -1,6 +1,36 @@
-.main__top {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.header{
+  background-color: black;
+  margin-bottom: 50px;
 }
+
+
+.nav {
+  display: flex;
+  justify-content: space-between ; 
+  align-items: center;
+  padding: 15px 15%;
+}
+.nav .header-logo{
+  color:  white;
+  font-size: 2rem;
+}
+ .add-sample{
+  display: flex;
+  justify-content: flex-end ; 
+  position: relative;
+  right:10%;
+  top: 0;
+  margin-bottom: 2%;
+
+}
+
+.nav .btn-logout{
+  font-size: 0.8rem;
+  height: 30px;
+  padding: 0rem 0.5rem;
+}
+a{
+  margin: 0 ;
+  
+}
+

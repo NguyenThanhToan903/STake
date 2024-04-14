@@ -12,6 +12,7 @@ const sampleSchema = new mongoose.Schema(
       default: "x123@gmail.com",
       type: String,
     },
+   
     thumbnail: {
       type: Array,
       default: [],

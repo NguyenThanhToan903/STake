@@ -6,6 +6,7 @@ import axiosInstance, { axiosJava } from "../../config";
 import DeleteModal from "../deleteModal/DeleteModal";
 import { useState } from "react";
 import Loading from "../loading/Loading";
+import style from "./style.css";
 
 const TableMain = ({ data }) => {
   const [modalShow, setModalShow] = useState(false);
@@ -14,8 +15,9 @@ const TableMain = ({ data }) => {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div>
+    <div className="table-home">
       <Table
+        className="table-sample"
         striped
         bordered
         hover
@@ -27,11 +29,7 @@ const TableMain = ({ data }) => {
             <th>#</th>
             <th>Thumbnail</th>
             <th>Sample Name</th>
-            <th>Size</th>
-            <th>Color</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Occupation</th>
+            <th>Email</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -57,22 +55,11 @@ const TableMain = ({ data }) => {
                 <td style={{ textAlign: "left", alignContent: "center" }}>
                   {item.name}
                 </td>
-                <td style={{ textAlign: "center", alignContent: "center" }}>
+                {/* <td style={{ textAlign: "center", alignContent: "center" }}>
                   {item.size}
-                </td>
+                </td> */}
                 <td style={{ textAlign: "center", alignContent: "center" }}>
-                  {item.color}
-                </td>
-                <td style={{ textAlign: "left", alignContent: "center" }}>
-                  {item.category}
-                </td>
-                <td style={{ textAlign: "left", alignContent: "center" }}>
-                  {item.description}
-                </td>
-                <td style={{ textAlign: "center", alignContent: "center" }}>
-                  {item.occupation === "other"
-                    ? item.occupationIs
-                    : item.occupation}
+                  {item.email}
                 </td>
                 <td
                   className="action"
