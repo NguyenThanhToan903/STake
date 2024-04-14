@@ -7,11 +7,18 @@ import { useEffect, useState } from "react";
 import { axiosJava } from "../../config";
 import "./main.css";
 import { logout } from "../../redux/userRedux";
+import socketIOClient from "socket.io-client";
+
+const host = "http://localhost:8000";
 
 const Main = () => {
   const [samples, setSamples] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const socket = socketIOClient.connect(host);
+  }, []);
 
   useEffect(() => {
     const getSample = async () => {
@@ -39,12 +46,6 @@ const Main = () => {
           <Button className="btn-logout" onClick={handleLogout}>
             LOG OUT
           </Button>
-
-          <h1 className="header-logo">STake</h1>
-          <Button className="btn-logout" onClick={handleLogout}>
-            LOG OUT
-          </Button>
-
         </div>
       </div>
       <div className="container">
