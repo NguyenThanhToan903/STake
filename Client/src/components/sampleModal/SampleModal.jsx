@@ -44,19 +44,19 @@ const SampleModal = ({ sampleModalShow, setSampleModalShow, sample }) => {
             {" "}
             <span>Occupation: </span> <span>{sample?.occupation}</span>
           </p>
-          {sample?.occupation === "other" && (
+          {sample?.occupation === "Other" && (
             <p>
-              <span>occupationIs: </span> <span>{sample?.occupationIs}</span>
+              <span>OccupationIs: </span> <span>{sample?.occupationIs}</span>
             </p>
           )}
           <p>
             {" "}
             <span>Description: </span> <span>{sample?.description}</span>
           </p>
-          <p>
+          {/* <p>
             {" "}
             <span>createdAt: </span> <span>{sample?.createdAt}</span>
-          </p>
+          </p> */}
         </div>
       </Modal.Body>
     </Modal>
