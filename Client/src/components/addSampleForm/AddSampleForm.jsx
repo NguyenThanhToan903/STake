@@ -16,6 +16,7 @@ const host = "http://localhost:8000/";
 
 const socket = socketIOClient.connect(host);
 
+
 function AddSampleForm() {
   const user = useSelector((state) => state.user.currentUser);
   let [searchParams, setSearchParams] = useSearchParams();
@@ -133,7 +134,9 @@ function AddSampleForm() {
           const res = await axiosJava.put(`/sample/${id}`, newSample);
           if (res.data) {
             setLoading(false);
+
             socket.emit("loading-server", { message: "hello" });
+
           }
           // }
         } else {
@@ -235,7 +238,7 @@ function AddSampleForm() {
             <div className="formbold-input-group">
               <label htmlFor="name" className="formbold-form-label">
                 {" "}
-                Simple Name{" "}
+                Sample Name{" "}
               </label>
               <input
                 type="text"
