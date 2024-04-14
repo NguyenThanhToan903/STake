@@ -8,7 +8,9 @@ import Swal from "sweetalert2";
 import "@sweetalert2/theme-dark/dark.css";
 import axiosInstance, { axiosJava } from "../../config";
 import Loading from "../loading/Loading";
+import {useSelector} from "react-redux"
 function AddSampleForm() {
+  const user = useSelector((state) => state.user.currentUser);
   let [searchParams, setSearchParams] = useSearchParams();
   const mode = searchParams.get("mode");
   const id = searchParams.get("id");
@@ -19,7 +21,7 @@ function AddSampleForm() {
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
   const [description, setDescription] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(user.email);
   const [occupation, setOccupation] = useState("");
   const [occupationIs, setOccupationIs] = useState("");
   const [thumbnail, setThumbnail] = useState({});
@@ -109,18 +111,24 @@ function AddSampleForm() {
             thumbnail: imageData,
             name,
             email,
-            category,
+            categorycate,
             occupation,
             occupationIs,
             size,
             color,
             description,
           };
+          
+          // if(newSample.name == "" || newSample.categorycate == "" || newSample.occupation == "" ){
+          //   navigate("/");
+          // }else{
+            const res = await axiosJava.put(`/sample/${id}`, newSample);
+            if (res.data) {
+              setLoading(false);
+            }
+          // }
 
-          const res = await axiosJava.put(`/sample/${id}`, newSample);
-          if (res.data) {
-            setLoading(false);
-          }
+          
         } else {
           const newSample = {
             thumbnail,
@@ -169,6 +177,8 @@ function AddSampleForm() {
         showConfirmButton: false,
         timer: 1500,
       });
+
+      navigate("/")
     } catch (error) {
       console.log(error);
     }
@@ -300,6 +310,7 @@ function AddSampleForm() {
                 type="email"
                 name="email"
                 id="email"
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 className="formbold-form-input"
