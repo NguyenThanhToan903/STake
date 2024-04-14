@@ -32,69 +32,23 @@ const Main = () => {
   };
 
   return (
-<<<<<<< HEAD
-    <div>
-      <div className="header">
-        <div>Logo</div>
-        <ul>
-          <li>
-            
-          </li>
-        </ul>
-      </div>
-      <div className="container">
-        <div
-          style={{ maxWidth: "97%", marginLeft: "auto", marginRight: "auto" }}
-        >
-          <div className="main__top">
-            <Link to={"/form?mode=add"}>
-              <Button
-                className="btn btn-success"
-                style={{ marginBottom: "10px", fontWeight: "700" }}
-              >
-                Add Sample
-              </Button>
-            </Link>
-            <Button
-              className="btn btn-danger"
-              style={{ marginBottom: "10px", fontWeight: "700" }}
-              onClick={handleLogout}
-            >
-              LOG OUT
-            </Button>
-          </div>
-          <TableMain data={samples} />
-=======
     <div className="home">
       <div className="header">
         <div className="nav">
-              <h1 className="header-logo">
-                STake
-              </h1>
-              <Button
-                className="btn-logout"
-                onClick={handleLogout}
-              >
-                LOG OUT
-              </Button>
->>>>>>> 2aa1ecfaa3ac842d696616f1bb0042ac7666c11d
+          <h1 className="header-logo">STake</h1>
+          <Button className="btn-logout" onClick={handleLogout}>
+            LOG OUT
+          </Button>
         </div>
       </div>
       <div className="container">
         <Link to={"/form?mode=add"} className="add-sample">
-          <Button
-            className="btn btn-success"
-
-          >
-            Add Sample
-          </Button>
+          <Button className="btn btn-success">Add Sample</Button>
         </Link>
-       
-       <TableMain data={samples} />
+
+        <TableMain data={samples} />
       </div>
-      
     </div>
-    
   );
 };
 

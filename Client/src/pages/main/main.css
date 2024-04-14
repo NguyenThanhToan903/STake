@@ -1,39 +1,32 @@
-<<<<<<< HEAD
-=======
-.header{
+.header {
   background-color: black;
   margin-bottom: 50px;
 }
 
-
 .nav {
   display: flex;
-  justify-content: space-between ; 
+  justify-content: space-between;
   align-items: center;
   padding: 15px 15%;
 }
-.nav .header-logo{
-  color:  white;
+.nav .header-logo {
+  color: white;
   font-size: 2rem;
 }
- .add-sample{
+.add-sample {
   display: flex;
-  justify-content: flex-end ; 
+  justify-content: flex-end;
   position: relative;
-  right:10%;
+  right: 10%;
   top: 0;
   margin-bottom: 2%;
-
 }
 
-.nav .btn-logout{
+.nav .btn-logout {
   font-size: 0.8rem;
   height: 30px;
   padding: 0rem 0.5rem;
 }
-a{
-  margin: 0 ;
-  
+a {
+  margin: 0;
 }
-
->>>>>>> 2aa1ecfaa3ac842d696616f1bb0042ac7666c11d
