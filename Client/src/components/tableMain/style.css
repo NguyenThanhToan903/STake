@@ -1,9 +1,29 @@
-.table-home{
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
+.table-home {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.table-sample{
-    max-width: 80%;
+.table-sample {
+  max-width: 80%;
+}
+.card {
+  margin-bottom: 20px;
+}
+
+.card-body {
+  display: flex;
+  margin-bottom: 20px;
+}
+.card-item {
+  max-width: 35%;
+  position: relative;
+}
+
+.card-img {
+  object-fit: cover;
+}
+
+.card-discription {
+  margin-left: 20px;
 }

@@ -17,7 +17,22 @@
   color: white;
   font-size: 2rem;
 }
+
+.header-logo {
+  color: white !important;
+  font-size: 2rem;
+}
+
+.btn-logout {
+  color: white !important;
+}
+
+.btn {
+  color: white !important;
+}
 .add-sample {
+  color: white !important;
+  text-decoration: none;
   display: flex;
   justify-content: flex-end;
   position: relative;
@@ -35,11 +50,13 @@ a {
   margin: 0;
 }
 .home {
-  height: 100vh;
+  height: 100%;
+  padding-bottom: 50px;
   background-color: rgb(224, 224, 224);
 }
 
 .container {
+  padding-top: 20px;
   border-radius: 10px;
   width: 75%;
   border: 1px solid rgb(215, 215, 215);
