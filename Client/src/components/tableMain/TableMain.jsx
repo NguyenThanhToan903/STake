@@ -4,7 +4,7 @@ import { Trash, Edit } from "react-feather";
 import { Link } from "react-router-dom";
 import axiosInstance, { axiosJava } from "../../config";
 import DeleteModal from "../deleteModal/DeleteModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
 import "./style.css";
 
@@ -16,7 +16,6 @@ const TableMain = ({ data }) => {
 
   return (
     <div className="table-home">
-      <h1>Tao da thay doi</h1>
       <Table
         className="table-sample"
         striped

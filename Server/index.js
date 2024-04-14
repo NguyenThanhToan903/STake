@@ -1,5 +1,8 @@
 const express = require("express");
 const cors = require("cors");
+const http = require("http");
+const { Server } = require("socket.io");
+
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const authRoute = require("./routes/auth");
@@ -8,8 +11,14 @@ const sampleRoute = require("./routes/sample");
 const app = express();
 app.use(express.json());
 app.use(
-  cors({ credentials: true, origin: true, exposedHeaders: ["set-cookies"] })
+  cors({
+    credentials: true,
+    origin: "http://localhost:5173",
+    exposedHeaders: ["set-cookies"],
+  })
 );
+
+const server = http.createServer(app);
 
 dotenv.config();
 
@@ -30,6 +39,17 @@ app.all("/", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
+});
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173/",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("connect");
 });
 
 app.use("/api/auth", authRoute);
