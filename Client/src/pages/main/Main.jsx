@@ -39,6 +39,12 @@ const Main = () => {
           <Button className="btn-logout" onClick={handleLogout}>
             LOG OUT
           </Button>
+
+          <h1 className="header-logo">STake</h1>
+          <Button className="btn-logout" onClick={handleLogout}>
+            LOG OUT
+          </Button>
+
         </div>
       </div>
       <div className="container">
