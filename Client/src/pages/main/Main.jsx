@@ -11,25 +11,31 @@ import socketIOClient from "socket.io-client";
 
 const host = "http://localhost:8000/";
 
+const socket = socketIOClient.connect(host);
+
 const Main = () => {
   const [samples, setSamples] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const socket = socketIOClient.connect(host);
-  }, []);
+  const getSample = async () => {
+    try {
+      const res = await axiosJava.get("/sample");
+      setSamples(res.data);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const getSample = async () => {
-      try {
-        const res = await axiosJava.get("/sample");
-        setSamples(res.data);
-        console.log(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    // getSample();
+
+    socket.on("loading-client", (data) => {
+      getSample();
+    });
+  }, [socket]);
+  useEffect(() => {
     getSample();
   }, []);
 

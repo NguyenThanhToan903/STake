@@ -57,8 +57,6 @@
 
 const express = require("express");
 const cors = require("cors");
-const http = require("http");
-const { Server } = require("socket.io");
 
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
@@ -69,11 +67,13 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    credentials: true,
     origin: "http://localhost:5173",
+    credentials: true,
     exposedHeaders: ["set-cookies"],
   })
 );
+const http = require("http");
+const { Server } = require("socket.io");
 
 dotenv.config();
 
@@ -102,7 +102,9 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("Connected");
+  socket.on("loading-server", (data) => {
+    socket.broadcast.emit("loading-client", data);
+  });
 });
 
 app.all("/", function (req, res, next) {

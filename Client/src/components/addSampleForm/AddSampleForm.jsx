@@ -9,6 +9,14 @@ import "@sweetalert2/theme-dark/dark.css";
 import axiosInstance, { axiosJava } from "../../config";
 import Loading from "../loading/Loading";
 import { useSelector } from "react-redux";
+
+import socketIOClient from "socket.io-client";
+
+const host = "http://localhost:8000/";
+
+const socket = socketIOClient.connect(host);
+
+
 function AddSampleForm() {
   const user = useSelector((state) => state.user.currentUser);
   let [searchParams, setSearchParams] = useSearchParams();
@@ -87,6 +95,7 @@ function AddSampleForm() {
         const res = await axiosJava.post("/sample", newSample);
         if (res.data) {
           setLoading(false);
+          socket.emit("loading-server", { message: "hello" });
         }
       } else {
         if (file && thumbnail) {
@@ -111,7 +120,7 @@ function AddSampleForm() {
             thumbnail: imageData,
             name,
             email,
-            categorycate,
+            category,
             occupation,
             occupationIs,
             size,
@@ -125,6 +134,9 @@ function AddSampleForm() {
           const res = await axiosJava.put(`/sample/${id}`, newSample);
           if (res.data) {
             setLoading(false);
+
+            socket.emit("loading-server", { message: "hello" });
+
           }
           // }
         } else {
@@ -143,6 +155,8 @@ function AddSampleForm() {
           const res = await axiosJava.put(`/sample/${id}`, newSample);
           if (res.data) {
             setLoading(false);
+
+            socket.emit("loading-server", { message: "hello" });
           }
         }
       }
