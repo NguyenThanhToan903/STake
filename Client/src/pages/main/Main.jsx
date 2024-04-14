@@ -9,7 +9,7 @@ import "./main.css";
 import { logout } from "../../redux/userRedux";
 import socketIOClient from "socket.io-client";
 
-const host = "http://localhost:8000";
+const host = "http://localhost:8000/";
 
 const Main = () => {
   const [samples, setSamples] = useState([]);
