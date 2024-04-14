@@ -6,7 +6,7 @@ import axiosInstance, { axiosJava } from "../../config";
 import DeleteModal from "../deleteModal/DeleteModal";
 import { useState } from "react";
 import Loading from "../loading/Loading";
-import style from "./style.css";
+import "./style.css";
 
 const TableMain = ({ data }) => {
   const [modalShow, setModalShow] = useState(false);
@@ -16,6 +16,7 @@ const TableMain = ({ data }) => {
 
   return (
     <div className="table-home">
+      <h1>Tao da thay doi</h1>
       <Table
         className="table-sample"
         striped
