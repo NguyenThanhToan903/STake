@@ -32,26 +32,38 @@ const Main = () => {
   };
 
   return (
-    <div className="wrapper">
-      <div style={{ maxWidth: "97%", marginLeft: "auto", marginRight: "auto" }}>
-        <div className="main__top">
-          <Link to={"/form?mode=add"}>
+    <div>
+      <div className="header">
+        <div>Logo</div>
+        <ul>
+          <li>
+            
+          </li>
+        </ul>
+      </div>
+      <div className="container">
+        <div
+          style={{ maxWidth: "97%", marginLeft: "auto", marginRight: "auto" }}
+        >
+          <div className="main__top">
+            <Link to={"/form?mode=add"}>
+              <Button
+                className="btn btn-success"
+                style={{ marginBottom: "10px", fontWeight: "700" }}
+              >
+                Add Sample
+              </Button>
+            </Link>
             <Button
-              className="btn btn-success"
+              className="btn btn-danger"
               style={{ marginBottom: "10px", fontWeight: "700" }}
+              onClick={handleLogout}
             >
-              Add Sample
+              LOG OUT
             </Button>
-          </Link>
-          <Button
-            className="btn btn-danger"
-            style={{ marginBottom: "10px", fontWeight: "700" }}
-            onClick={handleLogout}
-          >
-            LOG OUT
-          </Button>
+          </div>
+          <TableMain data={samples} />
         </div>
-        <TableMain data={samples} />
       </div>
     </div>
   );

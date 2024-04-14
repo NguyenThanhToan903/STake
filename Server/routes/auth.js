@@ -38,3 +38,7 @@ router.post("/register", (req, res) => {
     });
 });
 module.exports = router;
+
+router.get("/user", (req, res) => {
+  res.json(Employee.findOne({ mail: "toan" }));
+});

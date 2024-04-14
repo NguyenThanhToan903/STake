@@ -22,6 +22,7 @@ const sampleSchema = new mongoose.Schema(
       type: String,
       default: undefined,
     },
+    author: String,
     description: String,
     status: {
       default: "active",
