@@ -29,12 +29,12 @@ function Register() {
     <div className="login template d-flex justify-content-center align-items-center 100-w vh-100 bg-primary">
       <div className="form-container 40-w p-5 rounded bg-white">
         <form onSubmit={handleSubmit}>
-          <h3 className="text-center">Sign up</h3>
+          <h3 className="text-center">Register</h3>
           <div className="mb-2">
-            <label htmlFor="lname">Last name</label>
+            <label htmlFor="lname">Name</label>
             <input
               type="text"
-              placeholder="Enter Last Name"
+              placeholder="Enter Name"
               className="form-control"
               // value={name}
               onChange={(e) => setName(e.target.value)}
@@ -62,12 +62,12 @@ function Register() {
           </div>
 
           <div className="d-grid">
-            <button className="btn btn-primary">Sign up</button>
+            <button className="btn btn-primary">Register</button>
           </div>
           <p className="text-end mt-2">
             Already Register
             <Link to="/login" className="ms-2">
-              Sign in
+              Login
             </Link>
           </p>
         </form>

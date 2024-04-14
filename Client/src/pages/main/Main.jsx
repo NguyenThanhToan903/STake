@@ -1,17 +1,22 @@
 import { Link, useNavigate } from "react-router-dom";
-import { data } from "../../../data";
+
 import { Button } from "react-bootstrap";
 import TableMain from "../../components/tableMain/TableMain";
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { axiosJava } from "../../config";
 import "./main.css";
 import { logout } from "../../redux/userRedux";
+import socketIOClient from "socket.io-client";
+
+const socket = socketIOClient.connect("http://localhost:8000");
 
 const Main = () => {
   const [samples, setSamples] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const socketRef = useRef();
 
   useEffect(() => {
     const getSample = async () => {

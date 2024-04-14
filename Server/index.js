@@ -4,12 +4,28 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const authRoute = require("./routes/auth");
 const sampleRoute = require("./routes/sample");
+const http = require("http");
 
 const app = express();
 app.use(express.json());
 app.use(
   cors({ credentials: true, origin: true, exposedHeaders: ["set-cookies"] })
 );
+const { Server } = require("socket.io");
+
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    method: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  ///Handle khi có connect từ client tới
+  console.log("New client connected");
+});
 
 dotenv.config();
 

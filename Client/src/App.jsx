@@ -21,7 +21,10 @@ function App() {
           element={user ? <Navigate to="/" /> : <Login />}
         ></Route>
         <Route path="/register" element={<Register />}></Route>
-        <Route path="/form" element={<AddSampleForm />}></Route>
+        <Route
+          path="/form"
+          element={!user ? <Navigate to="/login" /> : <AddSampleForm />}
+        ></Route>
         <Route
           path="/"
           element={!user ? <Navigate to="/login" /> : <Main />}
