@@ -9,7 +9,6 @@ import SampleModal from "../sampleModal/SampleModal";
 
 // import SampleModal from "../sampleDetail/sampleDetail";
 
-
 import { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
 import "./style.css";
@@ -31,44 +30,46 @@ const TableMain = ({ data }) => {
               <Image className="card-img" src={item.thumbnail.path} />
             </div>
             <div className="card-discription" style={{ flex: 1 }}>
-              <h2 className="card-title">{item.name}</h2>
-              <h4>Author: {item.email}</h4>
-              <h5>Size: {item.size}</h5>
-              <p className="card-text">{item.description}</p>
+              <div className="card-main">
+                <h2 className="card-title">{item.name}</h2>
+                <h4>Author: {item.email}</h4>
+                <h5>Size: {item.size}</h5>
+                <div>
+                  <h6>Description</h6>
+                  <p className="card-text">{item.description}</p>
+                </div>
+                <div className="btn-container" style={{ display: "flex" }}>
+                  <Button
+                    onClick={() => {
+                      setSample(item);
+                      setSampleModalShow(true);
+                    }}
+                    className="btn-discription"
+                  >
+                    Chi tiết
+                  </Button>
 
-              <Button
-                onClick={() => {
-                  setSample(item);
-                  setSampleModalShow(true);
-                }}
-                className="btn btn-primary"
-              >
-                Go somewhere
-              </Button>
+                  <Link
+                    to={`/form?mode=edit&id=${item.id}`}
+                    className="btn-edit"
+                    style={{ color: "Green", marginLeft: "10px" }}
+                  >
+                    Chỉnh sửa
+                  </Link>
 
-              {/* <a href="#" className="btn btn-primary">
-                Chỉnh sửa
-              </a> */}
-              <Link
-                to={`/form?mode=edit&id=${item.id}`}
-                className=" btn-edit"
-                style={{ color: "Green", marginLeft: "10px" }}
-              >
-                {/* <Edit /> */}
-                Chỉnh sửa
-              </Link>
-
-              <button
-                className=""
-                style={{ color: "red", marginLeft: "10px" }}
-                onClick={() => {
-                  setSampleId(item.id);
-                  setModalShow(true);
-                  setPublicId(item.thumbnail.publicId);
-                }}
-              >
-                Xóa
-              </button>
+                  <Button
+                    className="btn-trash"
+                    style={{ color: "red", marginLeft: "10px" }}
+                    onClick={() => {
+                      setSampleId(item.id);
+                      setModalShow(true);
+                      setPublicId(item.thumbnail.publicId);
+                    }}
+                  >
+                    Xóa
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

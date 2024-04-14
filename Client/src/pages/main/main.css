@@ -1,5 +1,6 @@
 * {
   color: #2b2c30 !important;
+  box-sizing: border-box;
 }
 
 .header {
@@ -63,7 +64,76 @@ a {
   background-color: rgb(240, 240, 240);
 }
 
+.card-discription {
+  position: relative;
+}
+.btn-container {
+  white-space: nowrap;
+  position: absolute;
+  bottom: -60px;
+}
+.btn-discription:hover {
+  background-color: rgb(211, 135, 110) !important;
+}
+.card-main {
+  margin-bottom: 70px;
+  position: relative;
+}
+.card-text {
+  padding: 20px 10px;
+  background-color: #eee;
+  padding-left: 10px;
+  max-width: 790px;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+}
+/* .btn-discription,
+.btn-edit,
+.btn-trash {
+  height: 48px !important;
+  width: 140px !important;
+  border-radius: 10px !important;
+  border: 1px solid #ccc !important;
+  display: inline-block !important;
+  width: 140px !important;
+} */
+
+.btn-discription,
+.btn-edit,
+.btn-trash {
+  height: 48px !important;
+  width: 140px !important;
+  border-radius: 10px !important;
+  border: 1px solid #ccc !important;
+  font-size: 16px !important;
+  display: inline-block !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  margin-right: 10px !important;
+}
+
+.btn-discription:hover,
+.btn-edit:hover,
+.btn-trash:hover {
+  background-color: #eee !important;
+  transition: background-color 0.3s ease;
+}
+
 .btn-edit {
-  background-color: darksalmon;
-  padding: 0.75rem 0.375;
+  text-decoration: none !important;
+  line-height: 48px !important;
+}
+
+.btn-discription {
+  color: #ffffff !important;
+  background-color: #006eff;
+}
+.btn-edit {
+  color: rgb(255, 255, 255) !important;
+  background-color: #28db55;
+}
+
+.btn-trash {
+  color: rgb(255, 255, 255) !important;
+  background-color: #ffaaaa;
 }
