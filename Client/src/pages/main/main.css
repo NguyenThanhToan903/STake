@@ -1,3 +1,7 @@
+* {
+  color: #2b2c30 !important;
+}
+
 .header {
   background-color: black;
   margin-bottom: 50px;
@@ -29,4 +33,15 @@
 }
 a {
   margin: 0;
+}
+.home {
+  height: 100vh;
+  background-color: rgb(224, 224, 224);
+}
+
+.container {
+  border-radius: 10px;
+  width: 75%;
+  border: 1px solid rgb(215, 215, 215);
+  background-color: rgb(240, 240, 240);
 }

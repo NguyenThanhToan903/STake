@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import "@sweetalert2/theme-dark/dark.css";
 import axiosInstance, { axiosJava } from "../../config";
 import Loading from "../loading/Loading";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 function AddSampleForm() {
   const user = useSelector((state) => state.user.currentUser);
   let [searchParams, setSearchParams] = useSearchParams();
@@ -118,17 +118,15 @@ function AddSampleForm() {
             color,
             description,
           };
-          
+
           // if(newSample.name == "" || newSample.categorycate == "" || newSample.occupation == "" ){
           //   navigate("/");
           // }else{
-            const res = await axiosJava.put(`/sample/${id}`, newSample);
-            if (res.data) {
-              setLoading(false);
-            }
+          const res = await axiosJava.put(`/sample/${id}`, newSample);
+          if (res.data) {
+            setLoading(false);
+          }
           // }
-
-          
         } else {
           const newSample = {
             thumbnail,
@@ -178,7 +176,7 @@ function AddSampleForm() {
         timer: 1500,
       });
 
-      navigate("/")
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -226,7 +224,7 @@ function AddSampleForm() {
             <div className="formbold-input-group">
               <label htmlFor="name" className="formbold-form-label">
                 {" "}
-                Simple Name{" "}
+                Sample Name{" "}
               </label>
               <input
                 type="text"

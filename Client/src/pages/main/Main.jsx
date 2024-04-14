@@ -39,7 +39,7 @@ const Main = () => {
   };
 
   return (
-    <div className="home">
+    <div className="home ">
       <div className="header">
         <div className="nav">
           <h1 className="header-logo">STake</h1>
@@ -48,7 +48,7 @@ const Main = () => {
           </Button>
         </div>
       </div>
-      <div className="container">
+      <div className="container shadow">
         <Link to={"/form?mode=add"} className="add-sample">
           <Button className="btn btn-success">Add Sample</Button>
         </Link>
