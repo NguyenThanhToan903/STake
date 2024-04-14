@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import axiosInstance from "../../config";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/apiCall";
 // import "./style.css";
@@ -50,13 +52,13 @@ function Login() {
           </div>
 
           <div className="d-grid">
-            <button className="btn btn-primary">Sign in</button>
+            <button className="btn btn-primary">Log in</button>
           </div>
-          <p className="text-end mt-2">
-            <Link to="/register" className="ms-2">
+          <div className="d-grid mt-2">
+            <Link to="/register" className=" btn btn-secondary link">
               Register
             </Link>
-          </p>
+          </div>
         </form>
       </div>
     </div>
