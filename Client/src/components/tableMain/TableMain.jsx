@@ -4,7 +4,11 @@ import { Trash, Edit } from "react-feather";
 import { Link } from "react-router-dom";
 import axiosInstance, { axiosJava } from "../../config";
 import DeleteModal from "../deleteModal/DeleteModal";
+
 import SampleModal from "../sampleModal/SampleModal";
+
+// import SampleModal from "../sampleDetail/sampleDetail";
+
 
 import { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
@@ -31,6 +35,7 @@ const TableMain = ({ data }) => {
               <h4>Author: {item.email}</h4>
               <h5>Size: {item.size}</h5>
               <p className="card-text">{item.description}</p>
+
               <Button
                 onClick={() => {
                   setSample(item);
@@ -40,6 +45,19 @@ const TableMain = ({ data }) => {
               >
                 Go somewhere
               </Button>
+
+              {/* <a href="#" className="btn btn-primary">
+                Chỉnh sửa
+              </a> */}
+              <Link
+                to={`/form?mode=edit&id=${item.id}`}
+                className=" btn-edit"
+                style={{ color: "Green", marginLeft: "10px" }}
+              >
+                {/* <Edit /> */}
+                Chỉnh sửa
+              </Link>
+
               <button
                 className=""
                 style={{ color: "red", marginLeft: "10px" }}
@@ -51,13 +69,6 @@ const TableMain = ({ data }) => {
               >
                 Xóa
               </button>
-              <Link
-                to={`/form?mode=edit&id=${item.id}`}
-                className=""
-                style={{ color: "Green", marginLeft: "10px" }}
-              >
-                <Edit />
-              </Link>
             </div>
           </div>
         </div>
