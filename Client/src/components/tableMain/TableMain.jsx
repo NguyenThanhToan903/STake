@@ -1,15 +1,14 @@
 import Table from "react-bootstrap/Table";
-import { Image, Col, Container } from "react-bootstrap";
+import { Image, Col, Container, Button } from "react-bootstrap";
 import { Trash, Edit } from "react-feather";
 import { Link } from "react-router-dom";
 import axiosInstance, { axiosJava } from "../../config";
 import DeleteModal from "../deleteModal/DeleteModal";
-import SampleModal from "../sampleDetail/sampleDetail";
+import SampleModal from "../sampleModal/SampleModal";
 
 import { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
 import "./style.css";
-import SampleModal from "../sampleModal/SampleModal";
 
 const TableMain = ({ data }) => {
   const [modalShow, setModalShow] = useState(false);
@@ -20,7 +19,6 @@ const TableMain = ({ data }) => {
   const [sample, setSample] = useState({});
 
   return (
-
     <div>
       {data?.map((item, index) => (
         <div key={index} className="card" style={{ width: "100%" }}>
@@ -33,9 +31,15 @@ const TableMain = ({ data }) => {
               <h4>Author: {item.email}</h4>
               <h5>Size: {item.size}</h5>
               <p className="card-text">{item.description}</p>
-              <a href="#" className="btn btn-primary">
+              <Button
+                onClick={() => {
+                  setSample(item);
+                  setSampleModalShow(true);
+                }}
+                className="btn btn-primary"
+              >
                 Go somewhere
-              </a>
+              </Button>
               <button
                 className=""
                 style={{ color: "red", marginLeft: "10px" }}
@@ -66,6 +70,11 @@ const TableMain = ({ data }) => {
         setLoading={setLoading}
       />
       {loading && <Loading />}
+      <SampleModal
+        sampleModalShow={sampleModalShow}
+        setSampleModalShow={setSampleModalShow}
+        sample={sample}
+      />
     </div>
   );
 };
