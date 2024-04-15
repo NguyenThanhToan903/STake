@@ -16,12 +16,19 @@
   margin-bottom: 20px;
 }
 .card-item {
-  max-width: 35%;
-  position: relative;
+  max-width: 250px;
+  height: 250px;
+  overflow: hidden;
+  border: 1px solid #6f6d6d;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
 }
 
 .card-img {
   object-fit: cover;
+  border: none;
+  padding: 5px;
 }
 
 .card-discription {
