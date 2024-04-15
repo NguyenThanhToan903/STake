@@ -31,10 +31,10 @@ function Register() {
         <form onSubmit={handleSubmit}>
           <h3 className="text-center">Sign up</h3>
           <div className="mb-2">
-            <label htmlFor="lname">Last name</label>
+            <label htmlFor="lname">Name</label>
             <input
               type="text"
-              placeholder="Enter Last Name"
+              placeholder="Enter Name"
               className="form-control"
               // value={name}
               onChange={(e) => setName(e.target.value)}
@@ -65,8 +65,8 @@ function Register() {
             <button className="btn btn-primary">Sign up</button>
           </div>
           <p className="text-end mt-2">
-            Already Register
-            <Link to="/login" className="ms-2">
+            Already register ?
+            <Link to="/login" className="ms-1">
               Sign in
             </Link>
           </p>
