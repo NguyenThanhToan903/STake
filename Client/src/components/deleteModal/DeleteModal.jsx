@@ -34,10 +34,10 @@ const DeleteModal = ({ modalShow, setModalShow, id, publicId, setLoading }) => {
         <Modal.Body>Bạn tin chắc rằng mình muốn xoá</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setModalShow(false)}>
-            Close
+            Đóng
           </Button>
-          <Button variant="primary" onClick={() => handleDelete()}>
-            Save Changes
+          <Button variant="danger" onClick={() => handleDelete()}>
+            Xóa
           </Button>
         </Modal.Footer>
       </Modal>
